@@ -1,0 +1,26 @@
+module fulladder(input a,b,cin,output sum,cout);
+assign sum = a^b^cin;
+assign cout = (a&b)|(b&cin)|(a&cin);
+endmodule
+testbench
+
+module fulladder_tb;
+reg a,b,cin;
+wire sum,cout;
+fulladder dut(.a(a),.b(b),.cin(cin),.sum(sum),.cout(cout));
+initial begin
+$dumpfiles("fulladder.vcd");
+$dumpvars();
+$display("time\ta\tb\tcin\tsum\tcout\t");
+$monitor("%0t\t%b\t%b\t%b\t%b\t%b\t",$time,a,b,cin,sum,cout);
+end
+initial begin
+#10 a=0;b=0;cin=0;
+#10 a=0;b=0;cin=1;
+#10 a=0;b=1;cin=0;
+#10 a=1;b=0;cin=0;
+#10 a=1;b=0;cin=1;
+#10 a=1;b=1;cin=0;
+#10 a=1;b=1;cin=1;
+#10 $finish;
+end endmodule
