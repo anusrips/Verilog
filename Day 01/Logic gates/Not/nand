@@ -1,0 +1,24 @@
+module nand_gate(inuput a,b,output y);
+
+assign y = ~(a&b);
+
+endmodule
+
+testbench
+
+module nand_gate_tb;
+reg a,b;
+wire y;
+nand_gate dut(.a(a),.b(b),.y(y));
+initial begin
+$dumpfile("waves.vcd");
+$dumpvars();
+$monitor("a=%b,b=%b,y=%b");
+end
+initial begin
+#10 a=0;b=0;
+#10 a=1;b=1;
+#10 a=1;b=0;
+#10 a=0;b=1;
+end
+endmodule
