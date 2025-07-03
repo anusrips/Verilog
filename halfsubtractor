@@ -1,0 +1,24 @@
+module half_subtractor(input a,c,output b,d);
+assign b = ~a&c;
+assign d = a^b;
+endmodule
+
+testbench
+module half_subtractor_tb;
+reg a,c;
+wire b,d;
+half_subtractor uut(.a(a),.c(c),.b(b),.d(d));
+initial begin
+$dumpfile ("half_subtractor.vcd");
+$dumpvars();
+$display("time\ta\tc\tb\td\t");
+$monitor("%0t\t%b\t%b\t%b\t%b\t",$time,a,c,b,d);
+end
+initial begin
+#10 a=0;c=0;
+#10 a=0;c=1;
+#10 a=1;c=0;
+#10 a=1;c=1;
+#10 $finish;
+end 
+endmodue
