@@ -1,0 +1,23 @@
+module demux(input sel,a, output z0,z1);
+assign {z0,z1} = sel?{a,1'b0}:{a,1'b0};
+endmodule
+
+  testbench
+  module demux_tb;
+reg sel,a;
+wire z0,z1;
+demux uut(.sel(sel),.a(a),.z0(z0),.z1(z1));
+initial begin
+$dumpfile ("demux.vcd");
+$dumpvars();
+$display("time\tsel\ta\tz0\tz1\t");
+$monitor("%0t\t%b\t%b\t%b\t%b\t",$time,sel,a,z0,z1);
+end
+initial begin
+#1 sel=0;a=0;
+#1 sel=0;a=1;
+#1 sel=1;a=0;
+#1 sel=1;a=1;
+#10 $finish;
+end
+endmodule
