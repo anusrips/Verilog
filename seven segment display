@@ -1,0 +1,39 @@
+module seven seg(input [3:0]bcd,output [7:0]out);
+always@(bcd)begin
+case(bcd)
+0:out = 7'b1111110;
+1:out = 7'b0110000;
+2:out = 7'b1101101;
+3:out = 7'b1111001;
+4:out = 7'b0110011;
+5:out = 7'b1011011;
+6:out = 7'b1011111;
+7:out = 7'b1110001;
+8:out = 7'b1111111;
+9:out = 7'b1110011;
+default : out = 7'bxxxxxxx;
+endcase
+end
+endmodule
+
+testbench
+module seven seg_tb;
+reg [3:0];
+wire [7:0];
+initial i;
+seven seg uut(.bcd(bcd),.out(out));
+initial begin
+$monitor("$time,"bcd=%b,out=%b",bcd,out);
+for(i=0,i<16,i++) begin
+bcd = i; #10
+end
+end
+endmodule
+
+
+
+
+
+
+
+
